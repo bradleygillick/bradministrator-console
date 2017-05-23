@@ -27,6 +27,16 @@
           </div>
           <button type="submit" class="btn btn-primary">Add Expense</button>
         </form>
+        <div class="expense-table">
+          <p>Sort by
+          <select ng-model="$ctrl.propertyToOrderBy" ng-init="$ctrl.propertyToOrderBy='expDate'">
+            <option value="expDate">Date</option>
+            <option value="bizName">Business Name</option>
+            <option value="1*amount">Amount</option>
+            <option value="category">Category</option>
+          </select>
+          </p>
+        </div>
         <table class="table table-condensed">
           <thead>
             <th>Item No</th>
@@ -36,10 +46,10 @@
             <th>Category</th>
           </thead>
           <tbody>
-            <tr ng-repeat="expense in $ctrl.expenses | orderBy: 'category' ">
+            <tr ng-repeat="expense in $ctrl.expenses | orderBy: $ctrl.propertyToOrderBy">
               <td>{{ $index + 1 }}</td>
-              <td>{{ expense.expDate | amDateFormat:'L'}}
-              <td>{{ expense.bizName }}
+              <td>{{ expense.expDate | amDateFormat:'L'}}</td>
+              <td>{{ expense.bizName }}</td>
               <td>{{ expense.amount | number:2 }}</td>
               <td>{{ expense.category }}</td>
               <td>
@@ -83,9 +93,9 @@
         var total = 0;
 
         if (collection) {
-        collection.forEach(function (item) {
-          total += parseFloat(item[column]);
-        });
+          collection.forEach(function (item) {
+            total += parseFloat(item[column]);
+          });
         }
 
         return total.toFixed(2);

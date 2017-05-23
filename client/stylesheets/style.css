@@ -6923,3 +6923,7 @@ footer {
 small {
   color: #d9edf7 !important;
 }
+
+.expense-table {
+  margin-top: 2em;
+}
