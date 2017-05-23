@@ -10,7 +10,12 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   knex('expenses')
-    .insert({category: req.body.category, amount: req.body.amount})
+    .insert({
+      category: req.body.category,
+      amount: req.body.amount,
+      expDate: req.body.expDate,
+      bizName: req.body.bizName
+    })
     .returning('*')
     .then(expenses => res.json(expenses[0]))
     .catch(err => next(err))
@@ -18,7 +23,12 @@ router.post('/', (req, res, next) => {
 
 router.patch('/:id', (req, res, next) => {
   knex('expenses')
-    .update({category: req.body.category, amount: req.body.amount})
+    .update({
+      category: req.body.category,
+      amount: req.body.amount,
+      expDate: req.body.expDate,
+      bizName: req.body.bizName
+    })
     .where({id: req.params.id})
     .returning('*')
     .then(expenses => res.json(expenses[0]))

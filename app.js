@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client')));
+app.use(express.static(path.join(__dirname, './node_modules')));
+//app.use(express.static(path.join(__dirname, '/../', 'node_modules')))
 
 app.use('/api/expenses', require('./server/routes/expenses'))
 app.use('/api/v1', index);
