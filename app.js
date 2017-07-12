@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, './node_modules')));
 app.use('/api/hwValues', require('./server/routes/hwvalues'))
 
 
+
 app.use('*', function (req, res) {
   res.sendFile('index.html', {
     root: path.join(__dirname, './client')
