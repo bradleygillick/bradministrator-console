@@ -1,27 +1,35 @@
-(function () {
-  'use strict'
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-  angular.module('app')
-    .component('expenses', {
-      controller: controller,
-      template: `
-         <form>
-          <input type="radio" name="current-page" value="male" checked> Resources
-          <input type="radio" name="current-page" value="female"> Tasks
-        </form>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <body>
+ <form>
+        <input type="radio" name="current-page" value="male" checked> Resources
+        <input type="radio" name="current-page" value="female"> Tasks<br>
+      </form>
         <h3>Hardware Resources</h3>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">CPU</h3>
-              </div>
-              <div class="panel-body">
-                Panel content
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="row">
+        <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel title</h3>
+  </div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div></div>
         <div className="row"></div>
         <form name="expenseForm" ng-submit="$ctrl.addExpense(expenseForm.$valid)" novalidate>
           <div class="row">
@@ -103,80 +111,6 @@
             <button type="submit" class="btn btn-info btn-sm">Update Expense</button>
           </p>
         </form>
-      `
-    })
-    .filter('sumByColumn', function () {
-      return function (collection, column) {
-        var total = 0;
 
-        if (collection) {
-          collection.forEach(function (item) {
-            total += parseFloat(item[column]);
-          });
-        }
-
-        return total.toFixed(2);
-      };
-
-    })
-
-  controller.$inject = ['$http', '$window', 'moment']
-
-  function controller($http, $window) {
-    const vm = this
-
-    vm.$onInit = onInit
-    vm.addExpense = addExpense
-    vm.deleteExpense = deleteExpense
-    vm.editExpense = editExpense
-    vm.updateExpense = updateExpense
-
-    function onInit() {
-      $http
-        .get('/api/hwvalues')
-        .then((response) => {
-          vm.expenses = response.data
-        })
-    }
-
-    function addExpense() {
-      if (vm.expense.expDate && vm.expense.bizName && vm.expense.amount && vm.expense.category) {
-        $http
-          .post('/api/expenses', vm.expense)
-          .then((response) => {
-            vm.expenses.push(response.data)
-            delete vm.expense
-          })
-      }
-    }
-
-    function updateExpense() {
-      $http
-        .patch(`/api/expenses/${vm.editingExpense.id}`, vm.editingExpense)
-        .then((response) => {
-          const expense = response.data
-          const originalExpense = vm.expenses.find(e => e.id == expense.id)
-          Object.assign(originalExpense, expense)
-          delete vm.editingExpense
-        })
-    }
-
-    function deleteExpense(e, expense) {
-      if ($window.confirm('Are you sure?')) {
-        e.preventDefault()
-        $http
-          .delete(`/api/expenses/${expense.id}`)
-          .then(() => {
-            vm.expenses.splice(vm.expenses.indexOf(expense), 1)
-          })
-      }
-    }
-
-    function editExpense(e, expense) {
-      e.preventDefault()
-      vm.editingExpense = angular.copy(expense)
-      vm.editingExpense.expDate = moment(vm.editingExpense.expDate).format("L");
-    }
-  }
-
-}());
+  </body>
+</html>

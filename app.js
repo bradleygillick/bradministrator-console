@@ -11,14 +11,15 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client')));
 app.use(express.static(path.join(__dirname, './node_modules')));
 //app.use(express.static(path.join(__dirname, '/../', 'node_modules')))
 
-app.use('/api/expenses', require('./server/routes/expenses'))
-app.use('/api/v1', index);
+app.use('/api/hwValues', require('./server/routes/hwvalues'))
+
 
 app.use('*', function (req, res) {
   res.sendFile('index.html', {

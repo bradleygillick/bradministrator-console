@@ -1,14 +1,13 @@
 exports.up = function(knex, Promise) {
 
-  return knex.schema.createTable('expenses', function (table) {
+  return knex.schema.createTable('hw_values', function (table) {
     table.increments()
-    table.string('category')
-    table.decimal('amount')
-    table.date('expDate')
-    table.string('bizName')
+    table.string('name')
+    table.integer('value')
+    table.date('date')
   })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('expenses');
+  return knex.schema.dropTable('hw_values');
 };
