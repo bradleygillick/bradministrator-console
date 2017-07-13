@@ -48,7 +48,7 @@ module.exports = router
 
 var myInt = setInterval(function () {
   getAndSaveValuesToDB();
-}, 300000);
+}, 150000);
 
 function getAndSaveValuesToDB() {
   let cpu = os.freemem();
@@ -63,8 +63,8 @@ function getAndSaveValuesToDB() {
   if(mm<10){
       mm='0'+mm;
   }
-  var insert_date = dd+'/'+mm+'/'+yyyy;
-
+  // var insert_date = dd+'/'+mm+'/'+yyyy;
+  var insert_date = yyyy+'-'+mm+'-'+dd;
   let values_to_insert = {
     name: "cpu_usage",
     value: cpu,
