@@ -72,8 +72,8 @@ function getAndSaveValuesToDB() {
   }
   console.log('values to insert = ', values_to_insert);
 
-  knex('hw_values')
-    .insert(values_to_insert)
-    .then(console.log("inserted"))
-    .done()
-}
+//   knex('hw_values')
+//     .insert(values_to_insert)
+//     .then(console.log("inserted"))
+//     .done()
+// }
