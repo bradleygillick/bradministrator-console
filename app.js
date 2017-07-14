@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, './client')));
 app.use(express.static(path.join(__dirname, './node_modules')));
 //app.use(express.static(path.join(__dirname, '/../', 'node_modules')))
 
-app.use('/api/hwValues', require('./server/routes/values.js'))
+app.use('/api/hwvalues', require('./server/routes/values.js'))
 
 
 

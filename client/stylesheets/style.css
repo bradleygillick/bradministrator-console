@@ -6927,3 +6927,7 @@ small {
 .expense-table {
   margin-top: 2em;
 }
+
+.row-height {
+  height: 30vh;
+}

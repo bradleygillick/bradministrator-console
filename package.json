@@ -4,7 +4,8 @@
   "description": "AngularJS app to manage expenses",
   "main": "server/server.js",
   "scripts": {
-    "start": "node ./server/bin/www"
+    "start": "node ./server/bin/www",
+    "dev": "nodemon ./server/bin/www"
   },
   "author": "Ralph Minor",
   "license": "MIT",
@@ -14,6 +15,7 @@
     "body-parser": "~1.15.2",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
+    "cpu-stat": "^2.0.1",
     "debug": "~2.2.0",
     "dotenv": "^4.0.0",
     "express": "~4.14.0",
@@ -22,6 +24,7 @@
     "moment": "^2.18.1",
     "morgan": "~1.7.0",
     "pg": "^6.2.2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "smoothie": "^1.29.1"
   }
 }

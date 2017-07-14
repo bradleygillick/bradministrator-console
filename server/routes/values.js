@@ -2,15 +2,19 @@ const express = require('express')
 const router = express.Router()
 const knex = require('../db')
 var os = require('os');
+var cpuStat = require('cpu-stat');
+
 
 router.get('/', (req, res, next) => {
+  console.log('right here');
+
   knex('hw_values')
     .then(hw_values => res.json(hw_values))
     .catch(err => next(err))
 })
 
 router.post('/', (req, res, next) => {
-  console.log('req.body is',req.body);
+  console.log('req.body is', req.body);
   knex('hw_values')
     .insert({
       name: req.body.name,
@@ -29,7 +33,9 @@ router.patch('/:id', (req, res, next) => {
       value: req.body.value,
       date: req.body.date
     })
-    .where({id: req.params.id})
+    .where({
+      id: req.params.id
+    })
     .returning('*')
     .then(hw_values => res.json(hw_values[0]))
     .catch(err => next(err))
@@ -38,7 +44,9 @@ router.patch('/:id', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   knex('hw_values')
     .del()
-    .where({id: req.params.id})
+    .where({
+      id: req.params.id
+    })
     .then(hw_values => res.end())
     .catch(err => next(err))
 })
@@ -46,25 +54,24 @@ router.delete('/:id', (req, res, next) => {
 
 module.exports = router
 
-var myInt = setInterval(function () {
-  getAndSaveValuesToDB();
-}, 150000);
+// var myInt = setInterval(function () {
+//   getAndSaveValuesToDB();
+// }, 60000);
 
 function getAndSaveValuesToDB() {
   let cpu = os.freemem();
-
   var today = new Date();
   var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0!
+  var mm = today.getMonth() + 1; //January is <0!></0!>
   var yyyy = today.getFullYear();
-  if(dd<10){
-      dd='0'+dd;
+  if (dd < 10) {
+    dd = '0' + dd;
   }
-  if(mm<10){
-      mm='0'+mm;
+  if (mm < 10) {
+    mm = '0' + mm;
   }
   // var insert_date = dd+'/'+mm+'/'+yyyy;
-  var insert_date = yyyy+'-'+mm+'-'+dd;
+  var insert_date = yyyy + '-' + mm + '-' + dd;
   let values_to_insert = {
     name: "cpu_usage",
     value: cpu,
@@ -72,8 +79,8 @@ function getAndSaveValuesToDB() {
   }
   console.log('values to insert = ', values_to_insert);
 
-  knex('hw_values')
-    .insert(values_to_insert)
-    .then(console.log("inserted"))
-    .done()
+//   knex('hw_values')
+//     .insert(values_to_insert)
+//     .then(console.log("inserted"))
+//     .done()
 }
