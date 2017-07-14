@@ -58,29 +58,28 @@ module.exports = router
 //   getAndSaveValuesToDB();
 // }, 60000);
 
-function getAndSaveValuesToDB() {
-  let cpu = os.freemem();
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1; //January is <0!></0!>
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd;
-  }
-  if (mm < 10) {
-    mm = '0' + mm;
-  }
-  // var insert_date = dd+'/'+mm+'/'+yyyy;
-  var insert_date = yyyy + '-' + mm + '-' + dd;
-  let values_to_insert = {
-    name: "cpu_usage",
-    value: cpu,
-    date: insert_date
-  }
-  console.log('values to insert = ', values_to_insert);
+
+  // var today = new Date();
+  // var dd = today.getDate();
+  // var mm = today.getMonth() + 1; //January is <0!></0!>
+  // var yyyy = today.getFullYear();
+  // if (dd < 10) {
+  //   dd = '0' + dd;
+  // }
+  // if (mm < 10) {
+  //   mm = '0' + mm;
+  // }
+  // // var insert_date = dd+'/'+mm+'/'+yyyy;
+  // var insert_date = yyyy + '-' + mm + '-' + dd;
+  // let values_to_insert = {
+  //   name: "cpu_usage",
+  //   value: cpu,
+  //   date: insert_date
+  // }
+  // console.log('values to insert = ', values_to_insert);
 
 //   knex('hw_values')
 //     .insert(values_to_insert)
 //     .then(console.log("inserted"))
 //     .done()
-}
+// }

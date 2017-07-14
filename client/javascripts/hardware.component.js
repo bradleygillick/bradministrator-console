@@ -4,12 +4,12 @@
   angular.module('app')
     .component('hardware', {
       templateUrl: '/javascripts/hwr.html',
-      controller: controller
+      controller: controller,
     })
     .filter('sumByColumn', function () {
       return function (collection, column) {
         var total = 0;
-
+        
         if (collection) {
           collection.forEach(function (item) {
             total += parseFloat(item[column]);
