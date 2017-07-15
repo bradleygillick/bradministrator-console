@@ -10,25 +10,36 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-4">
             <div class="panel panel-default row-height">
               <div class="panel-heading">
                 <h3 class="panel-title">RAM</h3>
               </div>
               <div class="panel-body">
+                <smoothie-grid width="325" height="150">
+                  <time-series callback=$ctrl.foo() color="blue" rate="1000"></time-series>
+                </smoothie-grid>
               </div>
             </div>
           </div>
+
           <div class="col-md-4">
             <div class="panel panel-default row-height">
               <div class="panel-heading">
                 <h3 class="panel-title">Hard Disk</h3>
               </div>
               <div class="panel-body">
+                <smoothie-grid width="325" height="150">
+
+
+                </smoothie-grid>
               </div>
             </div>
           </div>
-        </div>
+
+
+
         <div class="row">
           <div class="col-md-4">
             <div class="panel panel-default row-height">
@@ -49,5 +60,6 @@
             </div>
           </div>
         </div>
+
         <script src="/smoothie/smoothie.js"></script>
         <script type="text/javascript" src="../main.js"></script>

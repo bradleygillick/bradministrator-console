@@ -31,14 +31,44 @@
     vm.deleteValue = deleteValue
     vm.editValue = editValue
     vm.updateValue = updateValue
+    var x = 15001596853140;
+
+    var y = 4.200681554712058
+
+    vm.foo = function() {
+      // return [2, 7];
+      let t = new Date().getTime();
+      let n = Math.random() * 30;
+      let j = [t, n];
+      console.log('j is ', j);
+      // return j;
+      x++;
+      y++;
+      return j;
+    };
+
+    vm.goo = function() {
+      return [new Date().getTime(), Math.random() * 30.0];
+    };
 
     function onInit() {
       $http
         .get('/api/hwvalues')
         .then((response) => {
           vm.values = response.data
+          console.log('vm.values is :', vm.values);
         })
     }
+
+    function getCPUChartValues() {
+      var x1;
+        $http
+          .get('/api/hwvalues')
+          .then((response) => {
+            x1 = response.data;
+          })
+        return [new Date().getTime(), x1]
+      }
 
     function addValue() {
       if (vm.value.expDate && vm.value.bizName && vm.value.amount && vm.value.category) {

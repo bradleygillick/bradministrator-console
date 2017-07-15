@@ -5,11 +5,13 @@ var os = require('os');
 var cpuStat = require('cpu-stat');
 
 router.get('/', (req, res, next) => {
-  console.log('right here');
-  
-  knex('hw_values')
-    .then(hw_values => res.json(hw_values))
-    .catch(err => next(err))
+  res.json({name: 'joe'})
+  // let new_reading = {time: new Date().getTime(), cpu: os.freemem()}
+  // console.log('new reading is:', new_reading);
+  // res.json(new_reading);
+  // knex('hw_values')
+  //   .then(hw_values => res.json(hw_values))
+  //   .catch(err => next(err))
 })
 
 router.post('/', (req, res, next) => {
