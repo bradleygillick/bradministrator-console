@@ -1,13 +1,13 @@
 {
-  "name": "AngularJS-simple-crud-app",
+  "name": "bradministrator-console",
   "version": "1.0.0",
-  "description": "AngularJS app to manage expenses",
+  "description": "A SysAdmin Console for the Local Machine",
   "main": "server/server.js",
   "scripts": {
     "start": "node ./server/bin/www",
     "dev": "nodemon ./server/bin/www"
   },
-  "author": "Ralph Minor",
+  "author": "Bradley Gillick",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.4",
@@ -26,5 +26,14 @@
     "pg": "^6.2.2",
     "serve-favicon": "~2.3.0",
     "smoothie": "^1.29.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bradleygillick/bradministrator-console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bradleygillick/bradministrator-console/issues"
+  },
+  "homepage": "https://github.com/bradleygillick/bradministrator-console#readme"
 }

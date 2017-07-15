@@ -3,11 +3,10 @@ const router = express.Router()
 const knex = require('../db')
 var os = require('os');
 var cpuStat = require('cpu-stat');
-var cpuPercent = 0.0;
 
 router.get('/', (req, res, next) => {
   console.log('right here');
-  child_process.execFile('../shellscripts/hello.sh')
+  
   knex('hw_values')
     .then(hw_values => res.json(hw_values))
     .catch(err => next(err))

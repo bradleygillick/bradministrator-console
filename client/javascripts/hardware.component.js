@@ -27,58 +27,57 @@
     const vm = this
 
     vm.$onInit = onInit
-    vm.addExpense = addExpense
-    vm.deleteExpense = deleteExpense
-    vm.editExpense = editExpense
-    vm.updateExpense = updateExpense
+    vm.addValue = addValue
+    vm.deleteValue = deleteValue
+    vm.editValue = editValue
+    vm.updateValue = updateValue
 
     function onInit() {
       $http
         .get('/api/hwvalues')
         .then((response) => {
-          vm.expenses = response.data
+          vm.values = response.data
         })
     }
 
-    function addExpense() {
-      if (vm.expense.expDate && vm.expense.bizName && vm.expense.amount && vm.expense.category) {
+    function addValue() {
+      if (vm.value.expDate && vm.value.bizName && vm.value.amount && vm.value.category) {
         $http
-          .post('/api/expenses', vm.expense)
+          .post('/api/values', vm.value)
           .then((response) => {
-            vm.expenses.push(response.data)
-            delete vm.expense
+            vm.values.push(response.data)
+            delete vm.value
           })
       }
     }
 
-    function updateExpense() {
+    function updateValue() {
       $http
-        .patch(`/api/expenses/${vm.editingExpense.id}`, vm.editingExpense)
+        .patch(`/api/values/${vm.editingValue.id}`, vm.editingValue)
         .then((response) => {
-          const expense = response.data
-          const originalExpense = vm.expenses.find(e => e.id == expense.id)
-          Object.assign(originalExpense, expense)
-          delete vm.editingExpense
+          const value = response.data
+          const originalValue = vm.values.find(e => e.id == value.id)
+          Object.assign(originalValue, value)
+          delete vm.editingValue
         })
     }
 
-    function deleteExpense(e, expense) {
+    function deleteValue(e, value) {
       if ($window.confirm('Are you sure?')) {
         e.preventDefault()
         $http
-          .delete(`/api/expenses/${expense.id}`)
+          .delete(`/api/values/${value.id}`)
           .then(() => {
-            vm.expenses.splice(vm.expenses.indexOf(expense), 1)
+            vm.values.splice(vm.values.indexOf(value), 1)
           })
       }
     }
 
-    function editExpense(e, expense) {
+    function editValue(e, value) {
       e.preventDefault()
-      vm.editingExpense = angular.copy(expense)
-      vm.editingExpense.expDate = moment(vm.editingExpense.expDate).format("L");
+      vm.editingValue = angular.copy(value)
+      vm.editingValue.expDate = moment(vm.editingValue.expDate).format("L");
     }
   }
 
 }());
- 
