@@ -3,11 +3,11 @@ const router = express.Router()
 const knex = require('../db')
 var os = require('os');
 var cpuStat = require('cpu-stat');
-
+var cpuPercent = 0.0;
 
 router.get('/', (req, res, next) => {
   console.log('right here');
-
+  child_process.execFile('../shellscripts/hello.sh')
   knex('hw_values')
     .then(hw_values => res.json(hw_values))
     .catch(err => next(err))
@@ -56,27 +56,28 @@ module.exports = router
 
 // var myInt = setInterval(function () {
 //   getAndSaveValuesToDB();
-// }, 60000);
+// }, 5000);
 
+// function getAndSaveValuesToDB() {
+//   var today = new Date();
+//   var dd = today.getDate();
+//   var mm = today.getMonth() + 1; //January is <0!></0!>
+//   var yyyy = today.getFullYear();
+//   if (dd < 10) {
+//     dd = '0' + dd;
+//   }
+//   if (mm < 10) {
+//     mm = '0' + mm;
+//   }
+//   // var insert_date = dd+'/'+mm+'/'+yyyy;
+//   var insert_date = yyyy + '-' + mm + '-' + dd;
 
-  // var today = new Date();
-  // var dd = today.getDate();
-  // var mm = today.getMonth() + 1; //January is <0!></0!>
-  // var yyyy = today.getFullYear();
-  // if (dd < 10) {
-  //   dd = '0' + dd;
-  // }
-  // if (mm < 10) {
-  //   mm = '0' + mm;
-  // }
-  // // var insert_date = dd+'/'+mm+'/'+yyyy;
-  // var insert_date = yyyy + '-' + mm + '-' + dd;
-  // let values_to_insert = {
-  //   name: "cpu_usage",
-  //   value: cpu,
-  //   date: insert_date
-  // }
-  // console.log('values to insert = ', values_to_insert);
+//   let values_to_insert = {
+//     name: "cpu_usage",
+//     value: cpuStat.usagePercent(),
+//     date: insert_date,
+//   }
+//   console.log('values to insert = ', values_to_insert);
 
 //   knex('hw_values')
 //     .insert(values_to_insert)

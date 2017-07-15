@@ -4,6 +4,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require("dotenv").load();
+var os = require('os');
+var cpuStat = require('cpu-stat');
 
 var index = require('./server/routes/index');
 
