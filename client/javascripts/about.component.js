@@ -2,23 +2,9 @@
   'use strict'
 
   angular.module('app')
-    .component('hardware', {
-      templateUrl: '/javascripts/hwr.html',
+    .component('about', {
+      templateUrl: '/javascripts/about.html',
       controller: controller,
-    })
-    .filter('sumByColumn', function () {
-      return function (collection, column) {
-        var total = 0;
-
-        if (collection) {
-          collection.forEach(function (item) {
-            total += parseFloat(item[column]);
-          });
-        }
-
-        return total.toFixed(2);
-      };
-
     })
 
   controller.$inject = ['$http', '$window', 'moment']
@@ -31,40 +17,24 @@
     vm.deleteValue = deleteValue
     vm.editValue = editValue
     vm.updateValue = updateValue
-    // var x = 15001606853140;
-
-    vm.y = 4.200681554712058
-
-    vm.foo = function() {
-      getCPUChartValues();
-      console.log('vm.time = ', vm.time);
-      console.log('vm.val = ', vm.val);
-
-      // return [2, 7];
-      // let t = new Date().getTime();
-      // let n = Math.random() * 30;
-      // let j = getCPUChartValues();
-      // console.log('j is ', j);
-      // return j;
-
-      return [vm.time, vm.val]
-    };
-
-    vm.goo = function() {
-      return [new Date().getTime(), Math.random() * 30.0];
-    };
 
     function onInit() {
-      // $http
-      //   .get('/api/hwvalues')
-      //   .then((response) => {
-      //     vm.values = response.data
-      //     console.log('vm.values is :', vm.values);
-      //   })
+      $http
+        .get('/api/hwvalues')
+        .then((response) => {
+          vm.values = response.data
+          console.log('vm.values is :', vm.values);
+        })
     }
 
     function getCPUChartValues() {
-      $http.get('/api/hwvalues').then((response) => {vm.time = response.data.time; vm.val = response.data.cpu})
+      var x1;
+        $http
+          .get('/api/hwvalues')
+          .then((response) => {
+            x1 = response.data;
+          })
+        return [new Date().getTime(), x1]
       }
 
     function addValue() {

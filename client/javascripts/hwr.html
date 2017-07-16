@@ -1,65 +1,62 @@
-        <h3>Hardware Resources</h3>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="panel panel-default row-height">
-              <div class="panel-heading">
-                <h3 class="panel-title">CPU</h3>
-              </div>
-              <div class="panel-body">
-                <canvas id="mycanvas" width="325" height="150"></canvas>
-              </div>
-            </div>
-          </div>
+<h3>Hardware Resources</h3>
 
-          <div class="col-md-4">
-            <div class="panel panel-default row-height">
-              <div class="panel-heading">
-                <h3 class="panel-title">RAM</h3>
-              </div>
-              <div class="panel-body">
-                <smoothie-grid width="325" height="150">
-                  <time-series callback=$ctrl.foo() color="blue" rate="1000"></time-series>
-                </smoothie-grid>
-              </div>
-            </div>
-          </div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-default row-height">
+      <div class="panel-heading">
+        <h3 class="panel-title">CPU</h3>
+      </div>
+      <div class="panel-body">
+        <smoothie-grid width="325" height="150">
+          <time-series callback=$ctrl.goo() color="green" fill="lightgreen" rate="500"></time-series>
+        </smoothie-grid>
+      </div>
+    </div>
+  </div>
 
-          <div class="col-md-4">
-            <div class="panel panel-default row-height">
-              <div class="panel-heading">
-                <h3 class="panel-title">Hard Disk</h3>
-              </div>
-              <div class="panel-body">
-                <smoothie-grid width="325" height="150">
+  <div class="col-md-4">
+    <div class="panel panel-default row-height">
+      <div class="panel-heading">
+        <h3 class="panel-title">RAM</h3>
+      </div>
+      <div class="panel-body">
+        <smoothie-grid width="325" height="150">
+          <time-series callback=$ctrl.foo() color="blue" fill="lightblue" rate="1000"></time-series>
+        </smoothie-grid>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-4">
+    <div class="panel panel-default row-height">
+      <div class="panel-heading">
+        <h3 class="panel-title">Hard Disk</h3>
+      </div>
+      <div class="panel-body">
 
-                </smoothie-grid>
-              </div>
-            </div>
-          </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
-
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="panel panel-default row-height">
-              <div class="panel-heading">
-                <h3 class="panel-title">Network</h3>
-              </div>
-              <div class="panel-body">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="panel panel-default row-height">
-              <div class="panel-heading">
-                <h3 class="panel-title">Battery</h3>
-              </div>
-              <div class="panel-body">
-              </div>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="panel panel-default row-height">
+        <div class="panel-heading">
+          <h3 class="panel-title">Network</h3>
         </div>
-
-        <script src="/smoothie/smoothie.js"></script>
-        <script type="text/javascript" src="../main.js"></script>
+        <div class="panel-body">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default row-height">
+        <div class="panel-heading">
+          <h3 class="panel-title">Battery</h3>
+        </div>
+        <div class="panel-body">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="../main.js"></script> -->
