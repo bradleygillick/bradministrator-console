@@ -5,13 +5,33 @@ var os = require('os');
 var cpuStat = require('cpu-stat');
 
 router.get('/', (req, res, next) => {
+  let new_reading = {
+    time: new Date().getTime(),
+    cpu: '',
+    ram: (((os.totalmem() - os.freemem()) / 1073741824) + 10),
+  }
 
-  let new_reading = {time: new Date().getTime(), cpu: (os.loadavg()[1]+20)}
-  console.log('new reading is:', new_reading);
-  res.json(new_reading);
-  // knex('hw_values')
-  //   .then(hw_values => res.json(hw_values))
-  //   .catch(err => next(err))
+  cpuStat.usagePercent(function (err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+
+    new_reading.cpu = percent;
+    console.log('new reading is', new_reading);
+    res.json(new_reading);
+  })
+
+  //     let new_reading = {
+  //       time: new Date().getTime(),
+  //       cpu: cpuFromCPUStat,
+  //       ram: ((os.totalmem() - os.freemem()) / 1073741824),
+  //       }
+  //       console.log('new reading is:', new_reading);
+  //       res.json(new_reading);
+  //       // knex('hw_values')
+  //       //   .then(hw_values => res.json(hw_values))
+  //       //   .catch(err => next(err))
+  //     })
 })
 
 router.post('/', (req, res, next) => {
@@ -54,34 +74,3 @@ router.delete('/:id', (req, res, next) => {
 
 
 module.exports = router
-
-// var myInt = setInterval(function () {
-//   getAndSaveValuesToDB();
-// }, 5000);
-
-// function getAndSaveValuesToDB() {
-//   var today = new Date();
-//   var dd = today.getDate();
-//   var mm = today.getMonth() + 1; //January is <0!></0!>
-//   var yyyy = today.getFullYear();
-//   if (dd < 10) {
-//     dd = '0' + dd;
-//   }
-//   if (mm < 10) {
-//     mm = '0' + mm;
-//   }
-//   // var insert_date = dd+'/'+mm+'/'+yyyy;
-//   var insert_date = yyyy + '-' + mm + '-' + dd;
-
-//   let values_to_insert = {
-//     name: "cpu_usage",
-//     value: cpuStat.usagePercent(),
-//     date: insert_date,
-//   }
-//   console.log('values to insert = ', values_to_insert);
-
-//   knex('hw_values')
-//     .insert(values_to_insert)
-//     .then(console.log("inserted"))
-//     .done()
-// }

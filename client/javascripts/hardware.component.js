@@ -31,41 +31,28 @@
     vm.deleteValue = deleteValue
     vm.editValue = editValue
     vm.updateValue = updateValue
-    // var x = 15001606853140;
 
-    vm.y = 4.200681554712058
-
-    vm.foo = function() {
-      getCPUChartValues();
-      console.log('vm.time = ', vm.time);
-      console.log('vm.val = ', vm.val);
-
-      // return [2, 7];
-      // let t = new Date().getTime();
-      // let n = Math.random() * 30;
-      // let j = getCPUChartValues();
-      // console.log('j is ', j);
-      // return j;
-
-      return [vm.time, vm.val]
+    vm.getCPU = function() {
+      getMachineStats();
+      return [vm.time, vm.cpu]
     };
 
-    vm.goo = function() {
-      return [new Date().getTime(), Math.random() * 30.0];
+    vm.getRAM = function() {
+      return [vm.time, vm.ram];
     };
 
     function onInit() {
-      // $http
-      //   .get('/api/hwvalues')
-      //   .then((response) => {
-      //     vm.values = response.data
-      //     console.log('vm.values is :', vm.values);
-      //   })
+      vm.cpu = 0;
+      vm.ram = 0;
     }
 
-    function getCPUChartValues() {
-      $http.get('/api/hwvalues').then((response) => {vm.time = response.data.time; vm.val = response.data.cpu})
-      }
+    function getMachineStats() {
+      $http.get('/api/hwvalues').then((response) => {
+        vm.time = response.data.time;
+        vm.cpu = response.data.cpu;
+        vm.ram = response.data.ram;
+      })
+    }
 
     function addValue() {
       if (vm.value.expDate && vm.value.bizName && vm.value.amount && vm.value.category) {
