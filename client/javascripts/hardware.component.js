@@ -45,6 +45,10 @@
       vm.cpu = 0;
       vm.ram = 0;
       vm.network = {};
+      vm.hostname = "";
+      vm.model = "";
+      vm.speed = 0;
+      vm.release = "";
     }
 
     function makeChart() {
@@ -77,6 +81,14 @@
         vm.cpu = response.data.cpu;
         vm.ram = response.data.ram;
         vm.network = response.data.network;
+        vm.hostname = response.data.hostname;
+        vm.model = response.data.model;
+        vm.speed = response.data.speed;
+        vm.arch = response.data.arch;
+        vm.platform = response.data.platform;
+        vm.release = response.data.release;
+        vm.type = response.data.type;
+        vm.uptime = response.data.uptime;
       })
     }
 

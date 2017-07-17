@@ -1,20 +1,33 @@
 <h3>Hardware Resources</h3>
 
-<div class="modal fade">
-  <div class="modal-dialog" role="document">
+<!-- Trigger the modal with a button
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal1">Open Modal</button> -->
+
+<!-- Modal -->
+<div id="modal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">CPU & OS Details</h4>
       </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
+      <div class="modal-body" align="center">
+        <smoothie-grid width="325" height="150">
+          <time-series callback=$ctrl.getCPU() color="green" fill="lightgreen" rate="1000"></time-series>
+        </smoothie-grid>
+        <h3><strong>CPU Info</strong></h3>
+        <p><strong>Model:</strong> {{$ctrl.model}}</p>
+        <p><strong>Architecture:</strong> {{$ctrl.arch}}</p>
+        <p><strong>Uptime:</strong> {{$ctrl.uptime}}</p>
+
+        <h3><strong>Operating System Info</strong></h3>
+        <p><strong>Host name:</strong> {{$ctrl.hostname}}</p>
+        <p><strong>Version:</strong> {{$ctrl.type}} {{$ctrl.release}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -25,25 +38,30 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">CPU</h3>
+            <button type="button" class="" data-toggle="modal" data-target="#modal1">
+            <h3 class="panel-title">CPU Usage (%)</h3>
           </div>
           <div class="panel-body">
             <smoothie-grid width="325" height="150">
               <time-series callback=$ctrl.getCPU() color="green" fill="lightgreen" rate="1000"></time-series>
             </smoothie-grid>
+           </button>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">RAM</h3>
+            <button type="button" class="" data-toggle="modal" data-target="">
+            <h3 class="panel-title">RAM Usage (%)</h3>
+            </button>
           </div>
           <div class="panel-body">
             <smoothie-grid width="325" height="150">
-              <time-series callback=$ctrl.getRAM() color="blue" fill="lightblue"  rate="1000"></time-series>
+              <time-series callback=$ctrl.getRAM() color="blue" fill="lightblue" rate="1000"></time-series>
             </smoothie-grid>
           </div>
+
         </div>
       </div>
     </div>
@@ -51,13 +69,16 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <button type="button" class="" data-toggle="modal" data-target="">
             <h3 class="panel-title">Network</h3>
+            </button>
+            <div class="led-green pull-right"></div>
           </div>
           <div class="panel-body">
-              <h4 class="network-header"><strong>IP Address:</strong> {{$ctrl.network.address}}</h4>
-              <h4 class="network-header"><strong>Netmask:</strong> {{$ctrl.network.netmask}}</h4>
-              <h4 class="network-header"><strong>IPvFamily:</strong> {{$ctrl.network.family}}</h4>
-              <h4 class="network-header"><strong>MAC Address:</strong> {{$ctrl.network.mac}}</h4>
+            <h4 class="network-header"><strong>IP Address:</strong> {{$ctrl.network.address}}</h4>
+            <h4 class="network-header"><strong>Netmask:</strong> {{$ctrl.network.netmask}}</h4>
+            <h4 class="network-header"><strong>IPvFamily:</strong> {{$ctrl.network.family}}</h4>
+            <h4 class="network-header"><strong>MAC Address:</strong> {{$ctrl.network.mac}}</h4>
             </ul>
           </div>
         </div>
@@ -65,7 +86,9 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <button type="button" class="" data-toggle="modal" data-target="">
             <h3 class="panel-title">Battery</h3>
+            </button>
           </div>
           <div class="panel-body">
             <div class="fa fa-battery-3"></div>
@@ -77,7 +100,9 @@
   <div class="col-md-4">
     <div class="panel panel-default ">
       <div class="panel-heading">
+        <button type="button" class="" data-toggle="modal" data-target="">
         <h3 class="panel-title">Hard Disk</h3>
+        </button>
       </div>
       <div class="panel-body">
         <div id="chartContainer" style="height: 53.75vh; width: 100%;"></div>

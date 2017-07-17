@@ -24,6 +24,14 @@ router.get('/', (req, res, next) => {
     cpu: '',
     ram: (((os.totalmem() - os.freemem()) / os.totalmem()) * 100 - 30),
     network: (os.networkInterfaces().en0[1]),
+    hostname: os.hostname(),
+    model: os.cpus()[0].model,
+    speed: os.cpus()[0].speed,
+    arch: os.arch(),
+    platform: os.platform(),
+    release: os.release(),
+    type: os.type(),
+    uptime: os.uptime()
   }
 
 
