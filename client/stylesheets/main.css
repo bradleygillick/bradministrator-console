@@ -1,0 +1,30 @@
+main {
+  margin-top: 15vh;
+  height: 80vh;
+}
+
+footer {
+  height: 5vh;
+}
+
+.title-text {
+  color: #fff;
+}
+
+small {
+  color: #d9edf7 !important;
+}
+
+.row-height {
+  height: 60vh;
+}
+
+.canvasjs-chart-credit {
+  display: none;
+}
+
+.fa-battery-3 {
+  color: darkorange;
+  font-size: 140px;
+  margin-left: 70px;
+}

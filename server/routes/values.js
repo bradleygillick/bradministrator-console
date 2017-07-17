@@ -4,12 +4,27 @@ const knex = require('../db')
 var os = require('os');
 var cpuStat = require('cpu-stat');
 
+router.get('/size', (req, res, next) => {
+  require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$2 }'", function(err, resp) {
+    console.log('size is', resp);
+    res.json(resp);
+  });
+})
+
+router.get('/used', (req, res, next) => {
+  require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$3 }'", function(err, resp) {
+    console.log('used is', resp);
+    res.json(resp);
+  });
+})
+
 router.get('/', (req, res, next) => {
   let new_reading = {
     time: new Date().getTime(),
     cpu: '',
-    ram: (((os.totalmem() - os.freemem()) / 1073741824) + 10),
+    ram: ((os.totalmem() - os.freemem()) / os.totalmem()) * 100,
   }
+
 
   cpuStat.usagePercent(function (err, percent, seconds) {
     if (err) {

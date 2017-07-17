@@ -6931,3 +6931,13 @@ small {
 .row-height {
   height: 30vh;
 }
+
+.canvasjs-chart-credit {
+  display: none;
+}
+
+.fa-battery-3 {
+  color: darkorange;
+  font-size: 140px;
+  margin-left: 70px;
+}
