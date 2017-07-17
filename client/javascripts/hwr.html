@@ -1,5 +1,24 @@
 <h3>Hardware Resources</h3>
 
+<div class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row row-height">
   <div class="col-md-8">
     <div class="row">
@@ -35,6 +54,11 @@
             <h3 class="panel-title">Network</h3>
           </div>
           <div class="panel-body">
+              <h4 class="network-header"><strong>IP Address:</strong> {{$ctrl.network.address}}</h4>
+              <h4 class="network-header"><strong>Netmask:</strong> {{$ctrl.network.netmask}}</h4>
+              <h4 class="network-header"><strong>IPvFamily:</strong> {{$ctrl.network.family}}</h4>
+              <h4 class="network-header"><strong>MAC Address:</strong> {{$ctrl.network.mac}}</h4>
+            </ul>
           </div>
         </div>
       </div>

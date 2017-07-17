@@ -44,42 +44,31 @@
     function onInit() {
       vm.cpu = 0;
       vm.ram = 0;
-      diskSize();
-      diskUsed();
-      chart.render();
-      vm.capacity = vm.size + vm.used;
-      vm.diskSize = vm.size / capacity * 100;
-      vm.diskUsed = vm.used / capacity * 100;
-
+      vm.network = {};
     }
 
-    var chart = new CanvasJS.Chart("chartContainer", {
+    function makeChart() {
+      var chart = new CanvasJS.Chart("chartContainer", {
 
-      animationEnabled: true,
-      theme: "theme2",
-      data: [{
-        type: "doughnut",
-        indexLabelFontFamily: "Garamond",
-        indexLabelFontSize: 20,
-        startAngle: 0,
-        indexLabelFontColor: "dimgrey",
-        indexLabelLineColor: "darkgrey",
-        toolTipContent: "{y} %",
+        animationEnabled: true,
+        theme: "theme2",
+        data: [{
+          type: "doughnut",
+          indexLabelFontFamily: "Garamond",
+          indexLabelFontSize: 20,
+          startAngle: 0,
+          indexLabelFontColor: "dimgrey",
+          indexLabelLineColor: "darkgrey",
+          toolTipContent: "{y} %",
 
-
-        dataPoints: [
-          // {  y: vm.diskUsed, indexLabel: "Used {y}%"},
-          {  y: 0, indexLabel: "" },
-          {  y: 55, indexLabel: "Used {y}%" },
-          {  y: 45, indexLabel: "Free {y}%" },
-          // {  y: 1.78, indexLabel: "Kindle {y}%" },
-          // {  y: 0.84,  indexLabel: "Symbian {y}%"},
-          // {  y: 0.74, indexLabel: "BlackBerry {y}%" },
-          // {  y: 2.06,  indexLabel: "Others {y}%"}
-
-        ]
-      }]
-    });
+          dataPoints: [
+            {  y: 1, indexLabel: "Used {y}%"},
+            {  y: 1, indexLabel: "Free {y}%"}
+          ]
+        }]
+      });
+    return chart;
+    }
 
 
     function getMachineStats() {
@@ -87,6 +76,7 @@
         vm.time = response.data.time;
         vm.cpu = response.data.cpu;
         vm.ram = response.data.ram;
+        vm.network = response.data.network;
       })
     }
 
@@ -130,24 +120,35 @@
       vm.editingValue.expDate = moment(vm.editingValue.expDate).format("L");
     }
 
-    function diskSize() {
+    function getDiskSize() {
       $http.get('/api/hwvalues/size').then((response) => {
         console.log('size is', response.data);
-        vm.size = response.data;
+        return response.data;
       })
     }
 
-    function diskUsed() {
+    function getDiskUsed() {
       $http.get('/api/hwvalues/used').then((response) => {
         console.log('used is', response.data);
-        vm.used = response.data;
+        return response.data;
       })
     }
 
 
 
-
+    vm.chart = makeChart();
+    console.log('chart options = ', vm.chart.options.data[0]);
+    //chart.options.data[0].dataPoints[3].y = 27;
+    vm.used = getDiskUsed();
+    vm.capacity = vm.size + vm.used;
+    vm.diskSize = vm.size / vm.capacity * 100;
+    vm.diskUsed = vm.used / vm.capacity * 100;
+    console.log('diskUsed = ', vm.size)
+    vm.chart.options.data[0].dataPoints[0].y = 55;
+    vm.chart.options.data[0].dataPoints[1].y = 45;
+    vm.chart.render();
   }
+
 
 
 

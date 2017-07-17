@@ -22,7 +22,8 @@ router.get('/', (req, res, next) => {
   let new_reading = {
     time: new Date().getTime(),
     cpu: '',
-    ram: ((os.totalmem() - os.freemem()) / os.totalmem()) * 100,
+    ram: (((os.totalmem() - os.freemem()) / os.totalmem()) * 100 - 30),
+    network: (os.networkInterfaces().en0[1]),
   }
 
 

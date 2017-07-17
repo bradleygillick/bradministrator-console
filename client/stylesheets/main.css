@@ -28,3 +28,7 @@ small {
   font-size: 140px;
   margin-left: 70px;
 }
+
+.network-header {
+  margin-bottom: 12.5px;
+}
