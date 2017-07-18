@@ -1,4 +1,4 @@
-html {
+/* html {
     background-color: black;
 }
 
@@ -9,7 +9,7 @@ body {
 body.fade-out {
     opacity: 0;
     transition: none;
-}
+} */
 
 main {
   margin-top: 10vh;

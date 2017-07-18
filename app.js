@@ -26,7 +26,7 @@ app.use('/api/hwvalues', require('./server/routes/values.js'))
 
 
 app.use('*', function (req, res) {
-  res.sendFile('splash.html', {
+  res.sendFile('index.html', {
     root: path.join(__dirname, './client')
   })
 })
