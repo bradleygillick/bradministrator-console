@@ -4,16 +4,46 @@ const knex = require('../db')
 var os = require('os');
 var cpuStat = require('cpu-stat');
 
+router.get('/size', (req, res, next) => {
+  require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$2 }'", function(err, resp) {
+    res.json(resp);
+  });
+})
+
+router.get('/used', (req, res, next) => {
+  require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$3 }'", function(err, resp) {
+    res.json(resp);
+  });
+})
+
 router.get('/', (req, res, next) => {
-  console.log('right here');
-  
-  knex('hw_values')
-    .then(hw_values => res.json(hw_values))
-    .catch(err => next(err))
+  let new_reading = {
+    time: new Date().getTime(),
+    cpu: '',
+    ram: (((os.totalmem() - os.freemem()) / os.totalmem()) * 100 - 30),
+    network: (os.networkInterfaces().en0[1]),
+    hostname: os.hostname(),
+    model: os.cpus()[0].model,
+    speed: os.cpus()[0].speed,
+    arch: os.arch(),
+    platform: os.platform(),
+    release: os.release(),
+    type: os.type(),
+    uptime: os.uptime()
+  }
+
+
+  cpuStat.usagePercent(function (err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+
+    new_reading.cpu = percent;
+    res.json(new_reading);
+  })
 })
 
 router.post('/', (req, res, next) => {
-  console.log('req.body is', req.body);
   knex('hw_values')
     .insert({
       name: req.body.name,
@@ -52,34 +82,3 @@ router.delete('/:id', (req, res, next) => {
 
 
 module.exports = router
-
-// var myInt = setInterval(function () {
-//   getAndSaveValuesToDB();
-// }, 5000);
-
-// function getAndSaveValuesToDB() {
-//   var today = new Date();
-//   var dd = today.getDate();
-//   var mm = today.getMonth() + 1; //January is <0!></0!>
-//   var yyyy = today.getFullYear();
-//   if (dd < 10) {
-//     dd = '0' + dd;
-//   }
-//   if (mm < 10) {
-//     mm = '0' + mm;
-//   }
-//   // var insert_date = dd+'/'+mm+'/'+yyyy;
-//   var insert_date = yyyy + '-' + mm + '-' + dd;
-
-//   let values_to_insert = {
-//     name: "cpu_usage",
-//     value: cpuStat.usagePercent(),
-//     date: insert_date,
-//   }
-//   console.log('values to insert = ', values_to_insert);
-
-//   knex('hw_values')
-//     .insert(values_to_insert)
-//     .then(console.log("inserted"))
-//     .done()
-// }

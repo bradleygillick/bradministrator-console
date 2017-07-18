@@ -1,36 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
-  <head>
-    <title>angularjs-simple-crud</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link href="./stylesheets/style.css" rel="stylesheet">
-  </head>
-  <body>
-    <header class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <h1 class="title-text">brAdministrator Console<small> Resource Monitor and Automated Tasks</small></h1>
+
+<head>
+  <title>brAdmin Console</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="./stylesheets/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <script>document.body.className += ' fade-out';</script>
+  <header class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div>
+        <a id="hamburger" onclick="openNav()" class="btn btn-lg pull-left">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </a>
       </div>
-    </header>
-
-    <main class="container">
-
-      <hardware></hardware>
-
-    </main>
-
-    <footer class="footer sticky-footer navbar navbar-default">
-      <div class="container">
-        <p class="title-text">&copy 2017 Bradley Gillick</p>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Monitor</a>
+        <a href="#">Tasks</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
       </div>
-    </footer>
-    <script src="/jquery/dist/jquery.min.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/angular/angular.min.js"></script>
-    <script src="/moment/min/moment.min.js"></script>
-    <script src="/angular-moment/angular-moment.js"></script>
-    <script src="/javascripts/app.module.js"></script>
-    <script src="/javascripts/hardware.component.js"></script>
-  </body>
+      <h2 class="title-text">br<span class="admin">Administrator</span> Console <small> Resource Monitor and Automated Tasks</small></h2>
+    </div>
+  </header>
+
+  <main class="container">
+    <hardware></hardware>
+
+  </main>
+
+  <footer class="footer sticky-footer navbar navbar-default">
+    <div class="container">
+      <p class="title-text copy">&copy 2017 Bradley Gillick</p>
+    </div>
+  </footer>
+
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/angular/angular.min.js"></script>
+  <script src="/moment/min/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
+  <script type="text/javascript" src="/smoothie/smoothie.js"></script>
+  <script type="text/javascript" src="/main.js"></script>
+  <script src="/angular-moment/angular-moment.js"></script>
+  <script src="/javascripts/app.module.js"></script>
+  <script src="/javascripts/directives.js"></script>
+  <script src="/javascripts/hardware.component.js"></script>
+
+</body>
+
 </html>

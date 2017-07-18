@@ -6,20 +6,6 @@
       templateUrl: '/javascripts/hwr.html',
       controller: controller,
     })
-    .filter('sumByColumn', function () {
-      return function (collection, column) {
-        var total = 0;
-
-        if (collection) {
-          collection.forEach(function (item) {
-            total += parseFloat(item[column]);
-          });
-        }
-
-        return total.toFixed(2);
-      };
-
-    })
 
   controller.$inject = ['$http', '$window', 'moment']
 
@@ -27,57 +13,99 @@
     const vm = this
 
     vm.$onInit = onInit
-    vm.addValue = addValue
-    vm.deleteValue = deleteValue
-    vm.editValue = editValue
-    vm.updateValue = updateValue
+    vm.getDiskSize = getDiskSize
+    vm.getCPU = getCPU
+    vm.getRAM = getRAM
 
     function onInit() {
-      $http
-        .get('/api/hwvalues')
-        .then((response) => {
-          vm.values = response.data
-        })
+      vm.cpu = 0;
+      vm.ram = 0;
+      vm.network = {};
+      vm.hostname = "";
+      vm.model = "";
+      vm.speed = 0;
+      vm.release = "";
     }
 
-    function addValue() {
-      if (vm.value.expDate && vm.value.bizName && vm.value.amount && vm.value.category) {
-        $http
-          .post('/api/values', vm.value)
-          .then((response) => {
-            vm.values.push(response.data)
-            delete vm.value
-          })
-      }
+    function getCPU() {
+      getMachineStats();
+      return [vm.time, vm.cpu]
+    };
+
+    function getRAM() {
+      return [vm.time, vm.ram];
+    };
+
+    function makeChart() {
+      var chart = new CanvasJS.Chart("chartContainer", {
+        title: {
+          text: "255 GB"
+        },
+        animationEnabled: true,
+        theme: "theme2",
+        data: [{
+          type: "doughnut",
+          indexLabelFontFamily: "Garamond",
+          indexLabelFontSize: 20,
+          startAngle: 0,
+          indexLabelFontColor: "dimgrey",
+          indexLabelLineColor: "darkgrey",
+          toolTipContent: "{y} %",
+
+          dataPoints: [{
+              y: 0,
+              indexLabel: ""
+            },
+            {
+              y: 1,
+              indexLabel: "Used {y}%"
+            },
+            {
+              y: 1,
+              indexLabel: "Free {y}%"
+            }
+          ]
+        }]
+      });
+      return chart;
     }
 
-    function updateValue() {
-      $http
-        .patch(`/api/values/${vm.editingValue.id}`, vm.editingValue)
-        .then((response) => {
-          const value = response.data
-          const originalValue = vm.values.find(e => e.id == value.id)
-          Object.assign(originalValue, value)
-          delete vm.editingValue
-        })
+
+    function getMachineStats() {
+      $http.get('/api/hwvalues').then((response) => {
+        vm.time = response.data.time;
+        vm.cpu = response.data.cpu;
+        vm.ram = response.data.ram;
+        vm.network = response.data.network;
+        vm.hostname = response.data.hostname;
+        vm.model = response.data.model;
+        vm.speed = response.data.speed;
+        vm.arch = response.data.arch;
+        vm.platform = response.data.platform;
+        vm.release = response.data.release;
+        vm.type = response.data.type;
+        vm.uptime = response.data.uptime;
+      })
     }
 
-    function deleteValue(e, value) {
-      if ($window.confirm('Are you sure?')) {
-        e.preventDefault()
-        $http
-          .delete(`/api/values/${value.id}`)
-          .then(() => {
-            vm.values.splice(vm.values.indexOf(value), 1)
-          })
-      }
+    function getDiskSize() {
+      $http.get('/api/hwvalues/size').then(function (result) {
+        vm.size = result.data;
+      })
+      return $http.get('/api/hwvalues/used')
     }
 
-    function editValue(e, value) {
-      e.preventDefault()
-      vm.editingValue = angular.copy(value)
-      vm.editingValue.expDate = moment(vm.editingValue.expDate).format("L");
-    }
+    vm.chart = makeChart();
+
+    vm.getDiskSize().then(function (result) {
+      vm.used = result.data;
+      vm.unused = ((vm.size - vm.used) / vm.size) * 100;
+      vm.diskUsed = (vm.used / vm.size) * 100;
+      vm.chart.options.data[0].dataPoints[1].y = vm.unused.toFixed(2);
+      vm.chart.options.data[0].dataPoints[2].y = vm.diskUsed.toFixed(2);
+      vm.chart.render();
+    })
+
   }
 
 }());
