@@ -6,14 +6,12 @@ var cpuStat = require('cpu-stat');
 
 router.get('/size', (req, res, next) => {
   require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$2 }'", function(err, resp) {
-    console.log('size is', resp);
     res.json(resp);
   });
 })
 
 router.get('/used', (req, res, next) => {
   require('child_process').exec("df -h ~ | grep -vE '^Filesystem|shm|boot' |  awk '{ print +$3 }'", function(err, resp) {
-    console.log('used is', resp);
     res.json(resp);
   });
 })
@@ -41,25 +39,11 @@ router.get('/', (req, res, next) => {
     }
 
     new_reading.cpu = percent;
-    console.log('new reading is', new_reading);
     res.json(new_reading);
   })
-
-  //     let new_reading = {
-  //       time: new Date().getTime(),
-  //       cpu: cpuFromCPUStat,
-  //       ram: ((os.totalmem() - os.freemem()) / 1073741824),
-  //       }
-  //       console.log('new reading is:', new_reading);
-  //       res.json(new_reading);
-  //       // knex('hw_values')
-  //       //   .then(hw_values => res.json(hw_values))
-  //       //   .catch(err => next(err))
-  //     })
 })
 
 router.post('/', (req, res, next) => {
-  console.log('req.body is', req.body);
   knex('hw_values')
     .insert({
       name: req.body.name,

@@ -27,7 +27,7 @@
       vm.release = "";
     }
 
-     function getCPU() {
+    function getCPU() {
       getMachineStats();
       return [vm.time, vm.cpu]
     };
@@ -38,7 +38,9 @@
 
     function makeChart() {
       var chart = new CanvasJS.Chart("chartContainer", {
-
+        title: {
+          text: "255 GB"
+        },
         animationEnabled: true,
         theme: "theme2",
         data: [{
@@ -50,14 +52,22 @@
           indexLabelLineColor: "darkgrey",
           toolTipContent: "{y} %",
 
-          dataPoints: [
-            {  y: 0, indexLabel: ""},
-            {  y: 1, indexLabel: "Used {y}%"},
-            {  y: 1, indexLabel: "Free {y}%"}
+          dataPoints: [{
+              y: 0,
+              indexLabel: ""
+            },
+            {
+              y: 1,
+              indexLabel: "Used {y}%"
+            },
+            {
+              y: 1,
+              indexLabel: "Free {y}%"
+            }
           ]
         }]
       });
-    return chart;
+      return chart;
     }
 
 
@@ -79,7 +89,7 @@
     }
 
     function getDiskSize() {
-      $http.get('/api/hwvalues/size').then(function(result) {
+      $http.get('/api/hwvalues/size').then(function (result) {
         vm.size = result.data;
       })
       return $http.get('/api/hwvalues/used')
@@ -87,7 +97,7 @@
 
     vm.chart = makeChart();
 
-    vm.getDiskSize().then(function(result) {
+    vm.getDiskSize().then(function (result) {
       vm.used = result.data;
       vm.unused = ((vm.size - vm.used) / vm.size) * 100;
       vm.diskUsed = (vm.used / vm.size) * 100;
